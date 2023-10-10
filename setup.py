@@ -28,7 +28,8 @@ setup(
     packages=[PACKAGE_NAME],
     include_package_data=True,
     license="MIT",
-    description="Package with new powerful TestCases and Assets to test django application fast. TDD is supported",
+    description="Package with new powerful TestCases and Assets "
+                "to test django application fast. TDD is supported",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     url="https://github.com/quillcraftsman/django-dry-tests",
