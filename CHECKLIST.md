@@ -34,4 +34,7 @@
 - [ ] Test Coverage 100%
 - [ ] Linters
 - [ ] Build
-- [ ] Deploy
+- [ ] Deploy To PyPi
+
+Others
+- [ ] Makefile?
