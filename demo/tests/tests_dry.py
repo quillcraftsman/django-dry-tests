@@ -5,7 +5,9 @@ from dry_tests import (
     Request,
     ExpectedResponse as Response,
     SimpleTestCase,
-    POST
+    POST,
+    Url,
+    ContentValue,
 )
 # from .db_test_data import create_simple
 # from demo.models import Simple
@@ -30,7 +32,7 @@ class ViewTestCase(SimpleTestCase):
                     status_code=200,
                     in_context='title',
                     context_values={'title': 'Title'},
-                    content_value='Title',
+                    content_values=['Title'],
                 ),
                 'should_fail': False,
                 'assert': self.assertDRY,
@@ -179,33 +181,46 @@ class ViewTestCase(SimpleTestCase):
             # Content Value
             {
                 'request': Request(url='/'),
-                'response': Response(content_value='Title'),
+                'response': Response(content_values=['Title']),
                 'should_fail': False,
-                'assert': self.assertContentValue,
+                'assert': self.assertContentValues,
             },
             {
                 'request': Request(url='/'),
-                'response': Response(content_value='Error value'),
+                'response': Response(content_values=[
+                    ContentValue(
+                        value='Title',
+                        count=1
+                    )
+                ]),
+                'should_fail': False,
+                'assert': self.assertContentValues,
+            },
+            {
+                'request': Request(url='/'),
+                'response': Response(content_values=['Error value']),
                 'should_fail': True,
-                'assert': self.assertContentValue,
+                'assert': self.assertContentValues,
             },
             {
                 'request': Request(url='/'),
-                'response': Response(content_value='Title'),
+                'response': Response(content_values=['Title']),
                 'should_fail': False,
                 'assert': self.assertDRY,
             },
             {
                 'request': Request(url='/'),
-                'response': Response(content_value='Error value'),
+                'response': Response(content_values=['Error value']),
                 'should_fail': True,
                 'assert': self.assertDRY,
             },
             # url_args
             {
                 'request': Request(
-                    url='/query/',
-                    url_args=['kwarg_value'],
+                    url=Url(
+                        url='/query/',
+                        args=['kwarg_value']
+                    )
                 ),
                 'response': Response(
                     context_values={'kwarg': 'kwarg_value'}
@@ -216,12 +231,14 @@ class ViewTestCase(SimpleTestCase):
             # url_params
             {
                 'request': Request(
-                    url='/query/',
-                    url_args=['kwarg_value'],
-                    url_params={
-                        'a': 'x',
-                        'b': 'y',
-                    }
+                    url = Url(
+                        url='/query/',
+                        args=['kwarg_value'],
+                        params={
+                            'a': 'x',
+                            'b': 'y',
+                        }
+                    )
                 ),
                 'response': Response(
                     context_values={

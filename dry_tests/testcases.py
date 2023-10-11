@@ -52,15 +52,15 @@ class SimpleTestCase(DjangoSimpleTestCase):
             self.assertIn(key, context)
             self.assertEqual(value, context[key])
 
-    def assertContentValue(self, true_response, response):
+    def assertContentValues(self, true_response, response):
         """
         Check Content Value
         :param request: Request
         :param response: Response
         :return: None
         """
-        # TODO: Response send every time - it's not good
-        self.assertContains(true_response, response.content_value)
+        for content_value in response.get_content_values():
+            self.assertContains(true_response, content_value.value, content_value.count)
 
     def assertDRY(self, true_response, response):
         """
@@ -78,8 +78,8 @@ class SimpleTestCase(DjangoSimpleTestCase):
             self.assertValueInContext(true_response, response)
         if response.context_values:
             self.assertContextValues(true_response, response)
-        if response.content_value:
-            self.assertContentValue(true_response, response)
+        if response.content_values:
+            self.assertContentValues(true_response, response)
 
     # def assertCreated(self, request, response):
     #     """
