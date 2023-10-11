@@ -1,7 +1,12 @@
 """
 Tests with Django Dry Tests TestCase
 """
-from dry_tests import Request, Response, SimpleTestCase, POST
+from dry_tests import (
+    Request,
+    ExpectedResponse as Response,
+    SimpleTestCase,
+    POST
+)
 # from .db_test_data import create_simple
 # from demo.models import Simple
 
@@ -282,18 +287,13 @@ class ViewTestCase(SimpleTestCase):
 
         for item in data:
             request = item['request']
-            response = item['response']
+            tru_response = request.get_url_response(self.client)
+            expected_response = item['response']
             assert_function = item['assert']
             with self.subTest(msg=str(item)):
-                # self.setUp()
-                # self.setUpClass()
-                # self.setUpTestData()
-                # self.clear_db()
                 if item['should_fail']:
                     with self.assertRaises(AssertionError):
-                        assert_function(item['request'], item['response'])
+                        assert_function(tru_response, expected_response)
                 else:
-                    assert_function(request, response)
+                    assert_function(tru_response, expected_response)
                 # self.clear_db()  # TODO: someting wrong with supTests
-                # self.tearDown()
-                # self.tearDownClass()

@@ -15,15 +15,53 @@ class Request:
     Main Request Model
     """
     url: str
-    # url_args: list = field(default_factory=lambda: [])
     url_args: list = None
     url_params: dict = None
     method: Literal[GET, POST] = GET
     data: dict = None
 
+    def make_url(self):
+        """
+        Make url with params and kwargs
+        :param request:
+        :return:
+        """
+        url = self.url
+        # url_args
+        url_args_list = self.url_args
+        if url_args_list:
+            url_args = '/'.join(url_args_list)
+            url = f'{url}{url_args}/'
+        # url_params
+        url_params_dict = self.url_params
+        if url_params_dict:
+            url_params_list = []
+            for key, value in url_params_dict.items():
+                pair = f'{key}={value}'
+                url_params_list.append(pair)
+            url_params_str = '&'.join(url_params_list)
+            url = f'{url}?{url_params_str}'
+        return url
+
+    def get_url_response(self, client):
+        """
+        get response with test client
+        :param client: Request client
+        :return: client response
+        """
+        requests = {
+            GET: client.get,
+            POST: client.post
+        }
+
+        url = self.make_url()
+        url_response = requests[self.method](url, data=self.data)
+
+        return url_response
+
 
 @dataclass(frozen=True)
-class Response:
+class ExpectedResponse:
     """
     Main Excepted Response Model
     """
