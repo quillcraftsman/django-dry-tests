@@ -29,12 +29,12 @@
 - [X] [Security Policy](https://github.com/quillcraftsman/open-source-checklist#security-policy)
 
 [CI and CD](https://github.com/quillcraftsman/open-source-checklist#ci-and-cd)
-- [ ] Tests
-- [ ] Test Coverage
-- [ ] Test Coverage 100%
-- [ ] Linters
-- [ ] Build
-- [ ] Deploy To PyPi
+- [x] Tests
+- [x] Test Coverage
+- [x] Test Coverage 100%
+- [x] Linters
+- [x] Build
+- [x] Deploy To PyPi
 
 Others
-- [ ] Makefile?
+- [x] Makefile

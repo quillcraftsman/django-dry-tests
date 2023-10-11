@@ -1,8 +1,13 @@
 test:
-	pytest
+	python manage.py test
+
+server:
+	python manage.py runserver
 
 coverage:
-	pytest -s --cov --cov-report html --cov-fail-under 100
+	coverage run --source='.' manage.py test
+	coverage report --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py --fail-under=100
+	coverage html --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py
 
 yamllint:
 	yamllint -d relaxed .
