@@ -12,57 +12,57 @@ class SimpleTestCase(DjangoSimpleTestCase):
     Main TestCase without test database
     """
 
-    def assertStatusCode(self, true_response, response):
+    def assertStatusCode(self, current_response, true_response):
         """
         Check status code
         :param request: Request
         :param response: Response
         :return: None
         """
-        self.assertEqual(true_response.status_code, response.status_code)
+        self.assertEqual(current_response.status_code, true_response.status_code)
 
-    def assertRedirectUrl(self, true_response, response):
+    def assertRedirectUrl(self, current_response, true_response):
         """
         Check Redirect Url
         :param request: Request
         :param response: Response
         :return: None
         """
-        self.assertRedirects(true_response, response.redirect_url)
+        self.assertRedirects(current_response, true_response.redirect_url)
 
-    def assertValueInContext(self, true_response, response):
+    def assertValueInContext(self, current_response, true_response):
         """
         Check Value In Context
         :param request: Request
         :param response: Response
         :return: None
         """
-        self.assertIn(response.in_context, true_response.context)
+        self.assertIn(true_response.in_context, current_response.context)
 
-    def assertContextValues(self, true_response, response):
+    def assertContextValues(self, current_response, true_response):
         """
         Check Context Value
         :param request: Request
         :param response: Response
         :return: None
         """
-        context = true_response.context
-        context_values = response.context_values
+        context = current_response.context
+        context_values = true_response.context_values
         for key, value in context_values.items():
             self.assertIn(key, context)
             self.assertEqual(value, context[key])
 
-    def assertContentValues(self, true_response, response):
+    def assertContentValues(self, current_response, true_response):
         """
         Check Content Value
         :param request: Request
         :param response: Response
         :return: None
         """
-        for content_value in response.get_content_values():
-            self.assertContains(true_response, content_value.value, content_value.count)
+        for content_value in true_response.get_content_values():
+            self.assertContains(current_response, content_value.value, content_value.count)
 
-    def assertDRY(self, true_response, response):
+    def assertTrueResponse(self, current_response, true_response):
         """
         Main assert for request and response
         Check all parameters sent in response
@@ -70,16 +70,23 @@ class SimpleTestCase(DjangoSimpleTestCase):
         :param response: Response
         :return: None
         """
-        if response.status_code:
-            self.assertStatusCode(true_response, response)
-        if response.redirect_url:
-            self.assertRedirectUrl(true_response, response)
-        if response.in_context:
-            self.assertValueInContext(true_response, response)
-        if response.context_values:
-            self.assertContextValues(true_response, response)
-        if response.content_values:
-            self.assertContentValues(true_response, response)
+        if true_response.status_code:
+            self.assertStatusCode(current_response, true_response)
+        if true_response.redirect_url:
+            self.assertRedirectUrl(current_response, true_response)
+        if true_response.in_context:
+            self.assertValueInContext(current_response, true_response)
+        if true_response.context_values:
+            self.assertContextValues(current_response, true_response)
+        if true_response.content_values:
+            self.assertContentValues(current_response, true_response)
+
+    def assertResponseIsTrue(self, response_pair):
+        self.assertTrueResponse(response_pair.current_response, response_pair.true_response)
+
+    def assertResponsesAreTrue(self, response_pairs):
+        for response_pair in response_pairs:
+            self.assertResponseIsTrue(response_pair)
 
     # def assertCreated(self, request, response):
     #     """

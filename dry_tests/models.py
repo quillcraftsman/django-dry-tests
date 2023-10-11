@@ -4,6 +4,7 @@ Main models to DRY tests
 from dataclasses import dataclass
 from typing import Literal
 from django.db.models import Model
+from django.http import HttpRequest
 
 GET = 'get'
 POST = 'post'
@@ -53,29 +54,6 @@ class Request:
     method: Literal[GET, POST] = GET
     data: dict = None
 
-    # def make_url(self):
-    #     """
-    #     Make url with params and kwargs
-    #     :param request:
-    #     :return:
-    #     """
-    #     url = self.url
-    #     # url_args
-    #     url_args_list = self.url_args
-    #     if url_args_list:
-    #         url_args = '/'.join(url_args_list)
-    #         url = f'{url}{url_args}/'
-    #     # url_params
-    #     url_params_dict = self.url_params
-    #     if url_params_dict:
-    #         url_params_list = []
-    #         for key, value in url_params_dict.items():
-    #             pair = f'{key}={value}'
-    #             url_params_list.append(pair)
-    #         url_params_str = '&'.join(url_params_list)
-    #         url = f'{url}?{url_params_str}'
-    #     return url
-
     def get_url_response(self, client):
         """
         get response with test client
@@ -103,7 +81,7 @@ class ContentValue:
 
 
 @dataclass(frozen=True)
-class ExpectedResponse:
+class TrueResponse:
     """
     Main Excepted Response Model
     """
@@ -126,3 +104,9 @@ class ExpectedResponse:
             else ContentValue(value=content_value)
             for content_value in self.content_values
         ]
+
+
+@dataclass(frozen=True)
+class ResponsePair:
+    current_response: HttpRequest
+    true_response: TrueResponse

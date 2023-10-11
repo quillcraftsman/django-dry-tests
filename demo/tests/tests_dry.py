@@ -3,11 +3,12 @@ Tests with Django Dry Tests TestCase
 """
 from dry_tests import (
     Request,
-    ExpectedResponse as Response,
+    TrueResponse as Response,
     SimpleTestCase,
     POST,
     Url,
     ContentValue,
+    ResponsePair,
 )
 # from .db_test_data import create_simple
 # from demo.models import Simple
@@ -17,6 +18,64 @@ class ViewTestCase(SimpleTestCase):
     """
     Concrete TestCase inherited from DRY SimpleTestCase
     """
+
+    # def test_many(self):
+    #     data = [
+    #         {
+    #             'request': Request(url='/').get_url_response(self.client),
+    #             'response': Response(
+    #                 status_code=200,
+    #                 in_context='title',
+    #                 context_values={'title': 'Title'},
+    #                 content_values=['Title'],
+    #             ),
+    #         },
+    #         # Multy parameters POST
+    #         {
+    #             'request': Request(url='/', method=POST).get_url_response(self.client),
+    #             'response': Response(
+    #                 status_code=302,
+    #                 redirect_url='/',
+    #             ),
+    #         },
+    #     ]
+    #
+    #     self.assertManyExpectedResponses(data)
+
+    def test_response_pair(self):
+        response_pair = ResponsePair(
+                            current_response=Request(url='/').get_url_response(self.client),
+                            true_response=Response(
+                                status_code=200,
+                                in_context='title',
+                                context_values={'title': 'Title'},
+                                content_values=['Title'],
+                            ),
+                        )
+        self.assertResponseIsTrue(response_pair)
+
+    def test_many_pairs(self):
+        response_pairs = [
+        ResponsePair(
+            current_response=Request(url='/').get_url_response(self.client),
+            true_response=Response(
+                status_code=200,
+                in_context='title',
+                context_values={'title': 'Title'},
+                content_values=['Title'],
+            ),
+        ),
+        ResponsePair(
+            current_response=Request(url='/').get_url_response(self.client),
+            true_response=Response(
+                status_code=200,
+                in_context='title',
+                context_values={'title': 'Title'},
+                content_values=['Title'],
+            ),
+        ),
+        ]
+        self.assertResponsesAreTrue(response_pairs)
 
     def test_main(self):
         """
@@ -35,7 +94,7 @@ class ViewTestCase(SimpleTestCase):
                     content_values=['Title'],
                 ),
                 'should_fail': False,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             # Multy parameters POST
             {
@@ -45,7 +104,7 @@ class ViewTestCase(SimpleTestCase):
                     redirect_url='/',
                 ),
                 'should_fail': False,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             # RedirectUrl
             {
@@ -64,13 +123,13 @@ class ViewTestCase(SimpleTestCase):
                 'request': Request(url='/', method=POST),
                 'response': Response(status_code=302, redirect_url='/'),
                 'should_fail': False,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             {
                 'request': Request(url='/', method=POST),
                 'response': Response(status_code=302, redirect_url='/fail_redirect/'),
                 'should_fail': True,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             # Post StatusCode
             {
@@ -89,13 +148,13 @@ class ViewTestCase(SimpleTestCase):
                 'request': Request(url='/', method=POST),
                 'response': Response(status_code=302),
                 'should_fail': False,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             {
                 'request': Request(url='/', method=POST),
                 'response': Response(status_code=404),
                 'should_fail': True,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             # Get StatusCode
             {
@@ -114,13 +173,13 @@ class ViewTestCase(SimpleTestCase):
                 'request': Request(url='/'),
                 'response': Response(status_code=200),
                 'should_fail': False,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             {
                 'request': Request(url='/'),
                 'response': Response(status_code=404),
                 'should_fail': True,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             # Value in Context
             {
@@ -139,13 +198,13 @@ class ViewTestCase(SimpleTestCase):
                 'request': Request(url='/'),
                 'response': Response(in_context='title'),
                 'should_fail': False,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             {
                 'request': Request(url='/'),
                 'response': Response(in_context='not_in_context_key'),
                 'should_fail': True,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             # Context Value
             {
@@ -170,13 +229,13 @@ class ViewTestCase(SimpleTestCase):
                 'request': Request(url='/'),
                 'response': Response(context_values={'title': 'Title'}),
                 'should_fail': False,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             {
                 'request': Request(url='/'),
                 'response': Response(context_values={'title': 'Error value'}),
                 'should_fail': True,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             # Content Value
             {
@@ -206,13 +265,13 @@ class ViewTestCase(SimpleTestCase):
                 'request': Request(url='/'),
                 'response': Response(content_values=['Title']),
                 'should_fail': False,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             {
                 'request': Request(url='/'),
                 'response': Response(content_values=['Error value']),
                 'should_fail': True,
-                'assert': self.assertDRY,
+                'assert': self.assertTrueResponse,
             },
             # url_args
             {
