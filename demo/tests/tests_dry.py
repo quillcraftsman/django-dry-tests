@@ -19,30 +19,11 @@ class ViewTestCase(SimpleTestCase):
     Concrete TestCase inherited from DRY SimpleTestCase
     """
 
-    # def test_many(self):
-    #     data = [
-    #         {
-    #             'request': Request(url='/').get_url_response(self.client),
-    #             'response': Response(
-    #                 status_code=200,
-    #                 in_context='title',
-    #                 context_values={'title': 'Title'},
-    #                 content_values=['Title'],
-    #             ),
-    #         },
-    #         # Multy parameters POST
-    #         {
-    #             'request': Request(url='/', method=POST).get_url_response(self.client),
-    #             'response': Response(
-    #                 status_code=302,
-    #                 redirect_url='/',
-    #             ),
-    #         },
-    #     ]
-    #
-    #     self.assertManyExpectedResponses(data)
-
     def test_response_pair(self):
+        """
+        Try to check the pair
+        :return:
+        """
         response_pair = ResponsePair(
                             current_response=Request(url='/').get_url_response(self.client),
                             true_response=Response(
@@ -55,6 +36,10 @@ class ViewTestCase(SimpleTestCase):
         self.assertResponseIsTrue(response_pair)
 
     def test_many_pairs(self):
+        """
+        Try check many pairs
+        :return:
+        """
         response_pairs = [
         ResponsePair(
             current_response=Request(url='/').get_url_response(self.client),
