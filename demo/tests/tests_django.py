@@ -1,13 +1,13 @@
 """
 Tests with django TestCase
 """
-from django.test import TestCase
+from django.test import TestCase, SimpleTestCase
 from demo.models import Simple
 
 
-class ViewTestCase(TestCase):
+class ViewSimpleTestCase(SimpleTestCase):
     """
-    Django Test Case to Test views
+    Django Test Case to Test views without database
     """
 
     def setUp(self):
@@ -58,6 +58,35 @@ class ViewTestCase(TestCase):
         :return:
         """
         self.assertContains(self.client.get(self.url), 'Title', 1)
+
+    def test_query_params_and_kwargs(self):
+        """
+        Send kwargs and query params to url
+        :return:
+        """
+        url = '/query/kwarg_value/?a=x&b=y'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        context = response.context
+        self.assertIn('a', context)
+        self.assertIn('b', context)
+        self.assertIn('kwarg', context)
+        self.assertEqual(context['a'], 'x')
+        self.assertEqual(context['b'], 'y')
+        self.assertEqual(context['kwarg'], 'kwarg_value')
+
+
+class ViewTestCase(TestCase):
+    """
+    Django tests with database
+    """
+
+    def setUp(self):
+        """
+        Set Up test data
+        :return:
+        """
+        self.url = '/'
 
     def test_new_object_created(self):
         """

@@ -1,22 +1,15 @@
 """
 Tests with Django Dry Tests TestCase
 """
-from dry_tests import Request, Response, TestCase, POST
+from dry_tests import Request, Response, SimpleTestCase, POST
 # from .db_test_data import create_simple
-from demo.models import Simple
+# from demo.models import Simple
 
 
-class ViewTestCase(TestCase):
+class ViewTestCase(SimpleTestCase):
     """
-    Concrete TestCase inherited from DRY TestCase
+    Concrete TestCase inherited from DRY SimpleTestCase
     """
-
-    def clear_db(self):
-        """
-        Clear database method for subtests
-        :return:
-        """
-        Simple.objects.all().delete()
 
     def test_main(self):
         """
@@ -108,41 +101,73 @@ class ViewTestCase(TestCase):
                 'should_fail': True,
                 'assert': self.assertContentValue,
             },
-            # Create object
+            # url_args
             {
                 'request': Request(
-                    url='/',
-                    method=POST,
-                    data={'name': 'new_name'}
+                    url='/query/',
+                    url_args=['kwarg_value'],
                 ),
                 'response': Response(
-                    created={
-                        'model': Simple,
-                        'fields': {
-                            'name': 'new_name',
-                        }
-                    },
+                    context_values={'kwarg': 'kwarg_value'}
                 ),
                 'should_fail': False,
-                'assert': self.assertCreated,
+                'assert': self.assertContextValues,
             },
+            # url_params
             {
                 'request': Request(
-                    url='/',
-                    method=POST,
-                    data={'name': 'new_name'}
+                    url='/query/',
+                    url_args=['kwarg_value'],
+                    url_params={
+                        'a': 'x',
+                        'b': 'y',
+                    }
                 ),
                 'response': Response(
-                    created={
-                        'model': Simple,
-                        'fields': {
-                            'name': 'error_name',
-                        }
-                    },
+                    context_values={
+                        'kwarg': 'kwarg_value',
+                        'a': 'x',
+                        'b': 'y',
+                    }
                 ),
-                'should_fail': True,
-                'assert': self.assertCreated,
-            },
+                'should_fail': False,
+                'assert': self.assertContextValues,
+            }
+            # Create object
+            # {
+            #     'request': Request(
+            #         url='/',
+            #         method=POST,
+            #         data={'name': 'new_name'}
+            #     ),
+            #     'response': Response(
+            #         created={
+            #             'model': Simple,
+            #             'fields': {
+            #                 'name': 'new_name',
+            #             }
+            #         },
+            #     ),
+            #     'should_fail': False,
+            #     'assert': self.assertCreated,
+            # },
+            # {
+            #     'request': Request(
+            #         url='/',
+            #         method=POST,
+            #         data={'name': 'new_name'}
+            #     ),
+            #     'response': Response(
+            #         created={
+            #             'model': Simple,
+            #             'fields': {
+            #                 'name': 'error_name',
+            #             }
+            #         },
+            #     ),
+            #     'should_fail': True,
+            #     'assert': self.assertCreated,
+            # },
             # Test Detail View
             # {
             #     'request': Request(
@@ -174,6 +199,6 @@ class ViewTestCase(TestCase):
                         assert_function(item['request'], item['response'])
                 else:
                     assert_function(request, response)
-                self.clear_db()  # TODO: someting wrong with supTests
+                # self.clear_db()  # TODO: someting wrong with supTests
                 # self.tearDown()
                 # self.tearDownClass()

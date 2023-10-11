@@ -24,6 +24,23 @@ def index_view(request):
     return HttpResponseRedirect('/')
 
 
+def param_view(request, kwarg):
+    """
+    view to test params and kwargs in url
+    :param reqeust:
+    :param kwarg:
+    :return:
+    """
+    a_param = request.GET.get('a')
+    b_param = request.GET.get('b')
+    context = {
+        'a': a_param,
+        'b': b_param,
+        'kwarg': kwarg,
+    }
+    return render(request, 'demo/index.html', context)
+
+
 def one_view(request, pk):
     """
     One view with pk to detail, update and delete object

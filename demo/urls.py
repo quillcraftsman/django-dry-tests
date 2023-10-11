@@ -9,4 +9,5 @@ app_name = 'demo'
 urlpatterns = [
     path('', views.index_view),
     path('<int:pk>/', views.one_view),
+    path('query/<str:kwarg>/', views.param_view),
 ]

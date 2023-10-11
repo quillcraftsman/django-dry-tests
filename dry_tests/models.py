@@ -15,6 +15,9 @@ class Request:
     Main Request Model
     """
     url: str
+    # url_args: list = field(default_factory=lambda: [])
+    url_args: list = None
+    url_params: dict = None
     method: Literal[GET, POST] = GET
     data: dict = None
 

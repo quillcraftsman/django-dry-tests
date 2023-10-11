@@ -1,14 +1,41 @@
 """
 Base testcases
 """
-from django.test import TestCase as DjangoTestCase
+from django.test import (
+    # TestCase as DjangoTestCase,
+    SimpleTestCase as DjangoSimpleTestCase,
+)
 from .models import GET, POST
 
 
-class TestCase(DjangoTestCase):
+class SimpleTestCase(DjangoSimpleTestCase):
     """
     Main TestCase with test database
     """
+
+    @staticmethod
+    def make_url(request):
+        """
+        Make url with params and kwargs
+        :param request:
+        :return:
+        """
+        url = request.url
+        # url_args
+        url_args_list = request.url_args
+        if url_args_list:
+            url_args = '/'.join(url_args_list)
+            url = f'{url}{url_args}/'
+        # url_params
+        url_params_dict = request.url_params
+        if url_params_dict:
+            url_params_list = []
+            for key, value in url_params_dict.items():
+                pair = f'{key}={value}'
+                url_params_list.append(pair)
+            url_params_str = '&'.join(url_params_list)
+            url = f'{url}?{url_params_str}'
+        return url
 
     def get_url_response(self, request):
         """
@@ -21,10 +48,8 @@ class TestCase(DjangoTestCase):
             POST: self.client.post
         }
 
-        # if request.data is None:
-        #     url_response = requests[request.method](request.url)
-        # else:
-        url_response = requests[request.method](request.url, data=request.data)
+        url = self.make_url(request)
+        url_response = requests[request.method](url, data=request.data)
 
         return url_response
 
@@ -83,16 +108,16 @@ class TestCase(DjangoTestCase):
         url_response = self.get_url_response(request)
         self.assertContains(url_response, response.content_value)
 
-    def assertCreated(self, request, response):
-        """
-        Check object was created
-        :param request: Request
-        :param response: Response
-        :return: None
-        """
-        created = response.created
-        model = created['model']
-        fields = created['fields']
-        self.assertFalse(model.objects.filter(**fields).exists())
-        self.get_url_response(request)
-        self.assertTrue(model.objects.filter(**fields).exists())
+    # def assertCreated(self, request, response):
+    #     """
+    #     Check object was created
+    #     :param request: Request
+    #     :param response: Response
+    #     :return: None
+    #     """
+    #     created = response.created
+    #     model = created['model']
+    #     fields = created['fields']
+    #     self.assertFalse(model.objects.filter(**fields).exists())
+    #     self.get_url_response(request)
+    #     self.assertTrue(model.objects.filter(**fields).exists())
