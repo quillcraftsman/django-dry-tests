@@ -2,11 +2,27 @@
 Tests with Django Dry Tests TestCase
 """
 from dry_tests import Request, Response, TestCase, POST
+# from .db_test_data import create_simple
+from demo.models import Simple
 
 
 class ViewTestCase(TestCase):
+    """
+    Concrete TestCase inherited from DRY TestCase
+    """
+
+    def clear_db(self):
+        """
+        Clear database method for subtests
+        :return:
+        """
+        Simple.objects.all().delete()
 
     def test_main(self):
+        """
+        All asserts tests in one test function
+        :return:
+        """
         data = [
             # RedirectUrl
             {
@@ -92,6 +108,56 @@ class ViewTestCase(TestCase):
                 'should_fail': True,
                 'assert': self.assertContentValue,
             },
+            # Create object
+            {
+                'request': Request(
+                    url='/',
+                    method=POST,
+                    data={'name': 'new_name'}
+                ),
+                'response': Response(
+                    created={
+                        'model': Simple,
+                        'fields': {
+                            'name': 'new_name',
+                        }
+                    },
+                ),
+                'should_fail': False,
+                'assert': self.assertCreated,
+            },
+            {
+                'request': Request(
+                    url='/',
+                    method=POST,
+                    data={'name': 'new_name'}
+                ),
+                'response': Response(
+                    created={
+                        'model': Simple,
+                        'fields': {
+                            'name': 'error_name',
+                        }
+                    },
+                ),
+                'should_fail': True,
+                'assert': self.assertCreated,
+            },
+            # Test Detail View
+            # {
+            #     'request': Request(
+            #         url='/',
+            #         create_one={
+            #             'model': Simple,
+            #             'fields': {
+            #                 'name': 'some name',
+            #             }
+            #         }
+            #     ),
+            #     'response': Response(status_code=200),
+            #     'should_fail': False,
+            #     'assert': self.assertStatusCode,
+            # },
         ]
 
         for item in data:
@@ -99,8 +165,15 @@ class ViewTestCase(TestCase):
             response = item['response']
             assert_function = item['assert']
             with self.subTest(msg=str(item)):
+                # self.setUp()
+                # self.setUpClass()
+                # self.setUpTestData()
+                # self.clear_db()
                 if item['should_fail']:
                     with self.assertRaises(AssertionError):
                         assert_function(item['request'], item['response'])
                 else:
                     assert_function(request, response)
+                self.clear_db()  # TODO: someting wrong with supTests
+                # self.tearDown()
+                # self.tearDownClass()

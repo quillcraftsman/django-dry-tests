@@ -4,6 +4,9 @@ test:
 server:
 	python manage.py runserver
 
+makemigrations:
+	python manage.py makemigrations
+
 coverage:
 	coverage run --source='.' manage.py test
 	coverage report --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py --fail-under=100
