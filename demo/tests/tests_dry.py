@@ -17,6 +17,29 @@ class ViewTestCase(SimpleTestCase):
         :return:
         """
         data = [
+            # Multy parameters GET
+            # DONE
+            {
+                'request': Request(url='/'),
+                'response': Response(
+                    status_code=200,
+                    in_context='title',
+                    context_values={'title': 'Title'},
+                    content_value='Title',
+                ),
+                'should_fail': False,
+                'assert': self.assertDRY,
+            },
+            # Multy parameters POST
+            {
+                'request': Request(url='/', method=POST),
+                'response': Response(
+                    status_code=302,
+                    redirect_url='/',
+                ),
+                'should_fail': False,
+                'assert': self.assertDRY,
+            },
             # RedirectUrl
             {
                 'request': Request(url='/', method=POST),
@@ -29,6 +52,18 @@ class ViewTestCase(SimpleTestCase):
                 'response': Response(status_code=302, redirect_url='/fail_redirect/'),
                 'should_fail': True,
                 'assert': self.assertRedirectUrl,
+            },
+            {
+                'request': Request(url='/', method=POST),
+                'response': Response(status_code=302, redirect_url='/'),
+                'should_fail': False,
+                'assert': self.assertDRY,
+            },
+            {
+                'request': Request(url='/', method=POST),
+                'response': Response(status_code=302, redirect_url='/fail_redirect/'),
+                'should_fail': True,
+                'assert': self.assertDRY,
             },
             # Post StatusCode
             {
@@ -43,6 +78,18 @@ class ViewTestCase(SimpleTestCase):
                 'should_fail': True,
                 'assert': self.assertStatusCode,
             },
+            {
+                'request': Request(url='/', method=POST),
+                'response': Response(status_code=302),
+                'should_fail': False,
+                'assert': self.assertDRY,
+            },
+            {
+                'request': Request(url='/', method=POST),
+                'response': Response(status_code=404),
+                'should_fail': True,
+                'assert': self.assertDRY,
+            },
             # Get StatusCode
             {
                 'request' : Request(url='/'),
@@ -56,6 +103,18 @@ class ViewTestCase(SimpleTestCase):
                 'should_fail': True,
                 'assert': self.assertStatusCode,
             },
+            {
+                'request': Request(url='/'),
+                'response': Response(status_code=200),
+                'should_fail': False,
+                'assert': self.assertDRY,
+            },
+            {
+                'request': Request(url='/'),
+                'response': Response(status_code=404),
+                'should_fail': True,
+                'assert': self.assertDRY,
+            },
             # Value in Context
             {
                 'request': Request(url='/'),
@@ -68,6 +127,18 @@ class ViewTestCase(SimpleTestCase):
                 'response': Response(in_context='not_in_context_key'),
                 'should_fail': True,
                 'assert': self.assertValueInContext,
+            },
+            {
+                'request': Request(url='/'),
+                'response': Response(in_context='title'),
+                'should_fail': False,
+                'assert': self.assertDRY,
+            },
+            {
+                'request': Request(url='/'),
+                'response': Response(in_context='not_in_context_key'),
+                'should_fail': True,
+                'assert': self.assertDRY,
             },
             # Context Value
             {
@@ -88,6 +159,18 @@ class ViewTestCase(SimpleTestCase):
                 'should_fail': True,
                 'assert': self.assertContextValues,
             },
+            {
+                'request': Request(url='/'),
+                'response': Response(context_values={'title': 'Title'}),
+                'should_fail': False,
+                'assert': self.assertDRY,
+            },
+            {
+                'request': Request(url='/'),
+                'response': Response(context_values={'title': 'Error value'}),
+                'should_fail': True,
+                'assert': self.assertDRY,
+            },
             # Content Value
             {
                 'request': Request(url='/'),
@@ -100,6 +183,18 @@ class ViewTestCase(SimpleTestCase):
                 'response': Response(content_value='Error value'),
                 'should_fail': True,
                 'assert': self.assertContentValue,
+            },
+            {
+                'request': Request(url='/'),
+                'response': Response(content_value='Title'),
+                'should_fail': False,
+                'assert': self.assertDRY,
+            },
+            {
+                'request': Request(url='/'),
+                'response': Response(content_value='Error value'),
+                'should_fail': True,
+                'assert': self.assertDRY,
             },
             # url_args
             {

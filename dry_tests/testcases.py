@@ -108,6 +108,25 @@ class SimpleTestCase(DjangoSimpleTestCase):
         url_response = self.get_url_response(request)
         self.assertContains(url_response, response.content_value)
 
+    def assertDRY(self, request, response):
+        """
+        Main assert for request and response
+        Check all parameters sended in response
+        :param request: Request
+        :param response: Response
+        :return: None
+        """
+        if response.status_code:
+            self.assertStatusCode(request, response)
+        if response.redirect_url:
+            self.assertRedirectUrl(request, response)
+        if response.in_context:
+            self.assertValueInContext(request, response)
+        if response.context_values:
+            self.assertContextValues(request, response)
+        if response.content_value:
+            self.assertContentValue(request, response)
+
     # def assertCreated(self, request, response):
     #     """
     #     Check object was created
