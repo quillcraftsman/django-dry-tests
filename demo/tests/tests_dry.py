@@ -8,7 +8,6 @@ from dry_tests import (
     POST,
     Url,
     ContentValue,
-    ResponsePair,
 )
 # from .db_test_data import create_simple
 # from demo.models import Simple
@@ -19,40 +18,25 @@ class ViewTestCase(SimpleTestCase):
     Concrete TestCase inherited from DRY SimpleTestCase
     """
 
-    def test_response_pair(self):
-        """
-        Try to check the pair
-        :return:
-        """
-        response_pair = ResponsePair(
-                            current_response=Request(url='/').get_url_response(self.client),
-                            true_response=Response(
-                                status_code=200,
-                                in_context='title',
-                                context_values={'title': 'Title'},
-                                content_values=['Title'],
-                            ),
-                        )
-        self.assertResponseIsTrue(response_pair)
-
-    def test_many_pairs(self):
+    def test_many(self):
         """
         Try check many pairs
         :return:
         """
         response_pairs = [
-        ResponsePair(
-            current_response=Request(url='/').get_url_response(self.client),
-            true_response=Response(
+        (
+            Request(url='/').get_url_response(self.client),
+            Response(
+
                 status_code=200,
                 in_context='title',
                 context_values={'title': 'Title'},
                 content_values=['Title'],
             ),
         ),
-        ResponsePair(
-            current_response=Request(url='/').get_url_response(self.client),
-            true_response=Response(
+        (
+            Request(url='/').get_url_response(self.client),
+            Response(
                 status_code=200,
                 in_context='title',
                 context_values={'title': 'Title'},

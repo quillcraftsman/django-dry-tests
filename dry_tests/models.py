@@ -4,7 +4,6 @@ Main models to DRY tests
 from dataclasses import dataclass
 from typing import Literal
 from django.db.models import Model
-from django.http import HttpRequest
 
 GET = 'get'
 POST = 'post'
@@ -103,12 +102,3 @@ class Request:
         url_response = requests[self.method](url, data=self.data)
 
         return url_response
-
-
-@dataclass(frozen=True)
-class ResponsePair:
-    """
-    Current Response + TrueResponse
-    """
-    current_response: HttpRequest
-    true_response: TrueResponse

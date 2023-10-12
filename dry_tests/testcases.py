@@ -81,22 +81,14 @@ class SimpleTestCase(DjangoSimpleTestCase):
         if true_response.content_values:
             self.assertContentValues(current_response, true_response)
 
-    def assertResponseIsTrue(self, response_pair):
-        """
-        Check one response pair
-        :param response_pair:
-        :return:
-        """
-        self.assertTrueResponse(response_pair.current_response, response_pair.true_response)
-
     def assertResponsesAreTrue(self, response_pairs):
         """
         Check all response pairs
         :param response_pairs:
         :return:
         """
-        for response_pair in response_pairs:
-            self.assertResponseIsTrue(response_pair)
+        for current_response, true_response in response_pairs:
+            self.assertTrueResponse(current_response, true_response)
 
     # def assertCreated(self, request, response):
     #     """
