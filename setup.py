@@ -24,7 +24,7 @@ PACKAGE_NAME = "dry_tests"
 
 setup(
     name=PACKAGE_PYPI_NAME,
-    version="0.0.1",
+    version="0.1.0",
     packages=[PACKAGE_NAME],
     include_package_data=True,
     license="MIT",
@@ -41,7 +41,7 @@ setup(
     # ],
     python_requires=">=3",
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
