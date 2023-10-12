@@ -1,0 +1,10 @@
+[MAIN]
+disable=
+    E1101, #  Dynamic attributes
+    E0307, #  __str__ does not return str
+    W0223, #  method is not overriden in child class
+    W0613, #  unused argument
+    C0103, # snake case (unittests)
+    W0511, # fixme
+
+ignore-paths=.*/migrations
