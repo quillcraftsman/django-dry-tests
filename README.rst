@@ -3,6 +3,51 @@ Django DRY Tests
 
 Package with new powerful TestCases and Assets to test django application fast. TDD is supported
 
+.. start-badges
+
+.. list-table::
+    :widths: 15 85
+    :stub-columns: 1
+
+    * - Build
+      - | |Tests|
+    * - Docs
+      - | |Documentation|
+    * - Package
+      - | |PyPI| |PyPI version| |Wheel| |Supported implementations|
+    * - Support
+      - | |Discussions|
+    * - Stats
+      - | |Downloads| |Monthly Downloads| |Weekly Downloads|
+
+.. |Discussions| image:: https://img.shields.io/badge/discussions-ff0068.svg
+   :target: https://github.com/quillcraftsman/django-dry-tests/discussions/
+.. |Tests| image:: https://github.com/quillcraftsman/django-dry-tests/actions/workflows/run-tests.yml/badge.svg?branch=main
+   :target: https://github.com/quillcraftsman/django-dry-tests/actions/workflows/run-tests.yml
+.. |Documentation| image:: https://readthedocs.org/projects/django-dry-tests/badge/?version=latest
+   :target: http://django-dry-tests.readthedocs.io/en/latest/?badge=latest
+.. |PyPI| image:: https://img.shields.io/pypi/v/django-dry-tests.svg
+   :target: https://pypi.python.org/pypi/django-dry-tests/
+.. |PyPI version| image:: https://img.shields.io/pypi/pyversions/django-dry-tests.svg
+   :target: https://pypi.python.org/pypi/django-dry-tests/
+.. |Wheel| image:: https://img.shields.io/pypi/wheel/django-dry-tests.svg
+    :alt: PyPI Wheel
+    :target: https://pypi.python.org/pypi/django-dry-tests
+.. |Supported implementations| image:: https://img.shields.io/pypi/implementation/django-dry-tests.svg
+    :alt: Supported implementations
+    :target: https://pypi.python.org/pypi/django-dry-tests
+.. |Downloads| image:: https://static.pepy.tech/badge/find-similar
+    :alt: Downloads
+    :target: https://pepy.tech/project/django-dry-tests
+.. |Monthly Downloads| image:: https://img.shields.io/pypi/dm/django-dry-tests.svg
+    :alt: Monthly Downloads
+    :target: https://pepy.tech/project/django-dry-tests
+.. |Weekly Downloads| image:: https://img.shields.io/pypi/dw/django-dry-tests.svg
+    :alt: Weelkly Downloads
+    :target: https://pepy.tech/project/django-dry-tests
+
+.. end-badges
+
 - `Full Documentation <https://drytests.craftsman.lol>`_
 - `Mission <#mission>`_
 - `Open Source Project <#open-source-project>`_
@@ -65,7 +110,7 @@ from release page
 Download source code from `GitHub Releases page <https://github.com/quillcraftsman/django-dry-tests/releases>`_
 
 clone from GitHub
-^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
