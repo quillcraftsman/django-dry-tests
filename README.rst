@@ -3,13 +3,14 @@ Django DRY Tests
 
 Package with new powerful TestCases and Assets to test django application fast. TDD is supported
 
+- `Full Documentation <https://drytests.craftsman.lol>`_
 - `Mission <#mission>`_
 - `Open Source Project <#open-source-project>`_
 - `Features <#features>`_
 - `Requirements <#requirements>`_
-- `Development Status <#development-status>`_
+- `Development Status <https://drytests.craftsman.lol#development-status>`_
 - `Install <#install>`_
-- `Quickstart <#quickstart>`_
+- `Quickstart <https://drytests.craftsman.lol#quickstart>`_
 - `Contributing <#contributing>`_
 
 Mission
@@ -29,7 +30,6 @@ Open Source Project
 This is the open source project with `MIT license <LICENSE>`_.
 Be free to use, fork, clone and contribute.
 
-.. _Features:
 Features
 --------
 
@@ -38,27 +38,16 @@ Features
 
   - `assertTrueResponse(self, current_response, true_response)` - Main assert to compare real response with expected
   - `assertResponsesAreTrue(self, response_pairs)` - Compare many responses
-  - Other more simple asserts (``assertStatusCode``, ``assertRedirectUrl``, ``assertValueInContext``,
-    ``assertContextValues``, ``assertContentValues``)
+  - Other more simple asserts (See more in Full Documentation)
 
 - Special **TestCase** class. Similar with **SimpleTestCase** but with testing database (**Not ready yet**)
-
-.. autoclass:: dry_tests.testcases.SimpleTestCase
-    :members:
 
 Requirements
 ------------
 
-.. include:: requirements.txt
-   :literal:
+- `Django==4` (Lower versions haven't been tested)
 
-Development Status
-------------------
-
-.. include:: package_info.py
-   :literal:
-
-Package available on `PyPi <https://pypi.org/project/django-dry-tests/>`_
+See more in Full Documentation
 
 Install
 -------
@@ -82,75 +71,6 @@ clone from GitHub
 
    git clone https://github.com/quillcraftsman/django-dry-tests.git
    make install
-
-Quickstart
-----------
-
-For example, you need to test some view like this:
-
-.. code-block:: python
-
-   def index_view(request):
-       if request.method == 'GET':
-           context = {
-               'title': 'Title'
-           }
-           return render(request, 'demo/index.html', context)
-
-       name = request.POST.get('name', None)
-       if name is not None:
-           Simple.objects.create(name=name)
-       return HttpResponseRedirect('/')
-
-And you want to check:
-
-- GET response status code
-- GET response context data
-- GET response some html data
-- POST response status code
-- POST response redirect url
-- POST response save object to database (**Not implemented yet**)
-
-Let's see the tests code:
-
-.. code-block:: python
-
-   from dry_tests import (
-       Request,
-       TrueResponse as Response,
-       SimpleTestCase,
-       POST,
-   )
-
-
-   class ViewTestCase(SimpleTestCase):
-
-       def test_main(self):
-           data = [
-               # Multy parameters GET
-               {
-                   'request': Request(url='/'),
-                   'response': Response(
-                       status_code=200,
-                       in_context='title',
-                       context_values={'title': 'Title'},
-                       content_values=['Title'],
-                   ),
-               },
-               # Multy parameters POST
-               {
-                   'request': Request(url='/', method=POST),
-                   'response': Response(
-                       status_code=302,
-                       redirect_url='/',
-                   ),
-               },
-           ]
-           for item in data:
-               request = item['request']
-               true_response = item['response']
-               current_response = request.get_url_response(self.client)
-               self.assertTrueResponse(current_response, true_response)
 
 Contributing
 ------------
