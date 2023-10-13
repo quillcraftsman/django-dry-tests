@@ -5,7 +5,7 @@ Package with new powerful TestCases and Assets to test django application fast. 
 
 - :ref:`Mission`
 - :ref:`Open Source Project`
-- :ref:`Features`
+- `Features <#features>`_
 - :ref:`Requirements`
 - :ref:`Development Status`
 - :ref:`Install`
@@ -29,6 +29,7 @@ Open Source Project
 This is the open source project with `MIT license <LICENSE>`_.
 Be free to use, fork, clone and contribute.
 
+.. _Features:
 Features
 --------
 
