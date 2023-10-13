@@ -30,7 +30,7 @@ class SimpleTestCase(DjangoSimpleTestCase):
         """
         self.assertRedirects(current_response, true_response.redirect_url)
 
-    def assertValueInContext(self, current_response, true_response):
+    def assertKeyInContext(self, current_response, true_response):
         """
         Check Value In Context
         :param request: Request
@@ -75,7 +75,7 @@ class SimpleTestCase(DjangoSimpleTestCase):
         if true_response.redirect_url:
             self.assertRedirectUrl(current_response, true_response)
         if true_response.in_context:
-            self.assertValueInContext(current_response, true_response)
+            self.assertKeyInContext(current_response, true_response)
         if true_response.context_values:
             self.assertContextValues(current_response, true_response)
         if true_response.content_values:

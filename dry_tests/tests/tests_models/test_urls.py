@@ -1,11 +1,12 @@
 """
 Tests for urls
 """
-from django.test import TestCase
+from django.test import SimpleTestCase, tag
 from dry_tests.models.urls import Url
 
 
-class UrlTestCase(TestCase):
+@tag('dry')
+class UrlTestCase(SimpleTestCase):
     """
     Tests for Url
     """
