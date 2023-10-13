@@ -157,7 +157,7 @@ Contributing
 
 You are welcome! To easy start please check:
 
-- `Developer Guidelines <CONTIBUTING.md>`_
-- :ref:`Developer Documentation`
-- :ref:`Code of Conduct`
-- :ref:`Security Policy`
+- `Developer Guidelines <CONTRIBUTING.md>`_
+- `Developer Documentation <DEVELOPER_DOCUMENTATION.md>`_
+- `Code of Conduct <CODE_OF_CONDUCT.md>`_
+- `Security Policy <SECURITY.md>`_
