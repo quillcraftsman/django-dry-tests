@@ -117,6 +117,8 @@ clone from GitHub
    git clone https://github.com/quillcraftsman/django-dry-tests.git
    make install
 
+.. include:: INSTALL.rst
+
 Contributing
 ------------
 
