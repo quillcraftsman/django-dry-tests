@@ -40,6 +40,7 @@
 - [x] Linters
 - [x] Build
 - [x] Deploy To PyPi
+- [ ] New user greetings
 
 Others
 - [x] Makefile
