@@ -3,14 +3,14 @@ Django DRY Tests
 
 Package with new powerful TestCases and Assets to test django application fast. TDD is supported
 
-- :ref:`Mission`
-- :ref:`Open Source Project`
+- `Mission <#mission>`_
+- `Open Source Project <#open-source-project>`_
 - `Features <#features>`_
-- :ref:`Requirements`
-- :ref:`Development Status`
-- :ref:`Install`
-- :ref:`Quickstart`
-- :ref:`Contributing`
+- `Requirements <#requirements>`_
+- `Development Status <#development-status>`_
+- `Install <#install>`_
+- `Quickstart <#quickstart>`_
+- `Contributing <#contributing>`_
 
 Mission
 -------
@@ -157,7 +157,7 @@ Contributing
 
 You are welcome! To easy start please check:
 
-- :ref:`Developer Guidelines`
+- `Developer Guidelines <CONTIBUTING.md>`_
 - :ref:`Developer Documentation`
 - :ref:`Code of Conduct`
 - :ref:`Security Policy`
