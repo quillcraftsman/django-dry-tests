@@ -127,47 +127,6 @@ class AssertFalseTestCase(SimpleTestCase):
         All asserts should fail
         :return:
         """
-
-            # url_args
-            # {
-            #     'request': Request(
-            #         url=Url(
-            #             url='/query/',
-            #             args=['kwarg_value']
-            #         )
-            #     ),
-            #     'response': Response(
-            #         # context_values={'kwarg': 'kwarg_value'}
-            #         Context(
-            #             items={'kwarg': 'kwarg_value'}
-            #         )
-            #     ),
-            #     'should_fail': False,
-            #     'assert': self.assertContextValues,
-            # },
-            # url_params
-            # {
-            #     'request': Request(
-            #         url = Url(
-            #             url='/query/',
-            #             args=['kwarg_value'],
-            #             params={
-            #                 'a': 'x',
-            #                 'b': 'y',
-            #             }
-            #         )
-            #     ),
-            #     'response': Response(
-            #         context_values={
-            #             'kwarg': 'kwarg_value',
-            #             'a': 'x',
-            #             'b': 'y',
-            #         }
-            #     ),
-            #     'should_fail': False,
-            #     'assert': self.assertContextValues,
-            # }
-
         error_responses = []
 
         status_code = 404

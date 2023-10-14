@@ -100,6 +100,7 @@ class SimpleTestCase(DjangoSimpleTestCase):
             self.assertStatusCode(current_response, true_response)
         if true_response.redirect_url:
             self.assertRedirectUrl(current_response, true_response)
+            # Not ?
         # context
         if true_response.context:
             true_response_context = true_response.context
