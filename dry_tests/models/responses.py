@@ -4,6 +4,7 @@ Response models
 from dataclasses import dataclass
 from django.db.models import Model
 from .content import ContentValue
+from .context import Context
 
 
 @dataclass(frozen=True)
@@ -13,9 +14,10 @@ class TrueResponse:
     """
     status_code: int = 200
     redirect_url: str = None
-    in_context: str = None
-    context_values: dict = None
+    # in_context: str = None
+    # context_values: dict = None
     content_values: list = None
+    context: Context = None
     created: Model = None
     # db_data: callable = None
 

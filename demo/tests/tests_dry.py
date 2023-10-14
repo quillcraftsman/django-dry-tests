@@ -8,115 +8,212 @@ from dry_tests import (
     SimpleTestCase,
     POST,
     Url,
+    Context,
 )
 # from .db_test_data import create_simple
 # from demo.models import Simple
 
 
 @tag('dry')
-class ViewTestCase(SimpleTestCase):
+class AssertTrueTestCase(SimpleTestCase):
     """
     Concrete TestCase inherited from DRY SimpleTestCase
+    All asserts Should not fail
+    """
+    def setUp(self):
+        self.request = Request(url='/')
+        self.true_response = Response(
+            status_code=200,
+            context=Context(
+                keys=['title'],
+                items={'title': 'Title'},
+                values=['Title'],
+                types={'title': str},
+            ),
+            content_values=['Title'],
+        )
+
+    def testAssertTrueResponse(self):
+        """
+        True test get method
+        :return:
+        """
+        # GET
+        current_response = self.request.get_url_response(self.client)
+        self.assertTrueResponse(current_response, self.true_response)
+
+    def testAssertTrueResponsePost(self):
+        """
+        True test Post method
+        :return:
+        """
+        request = Request(url='/', method=POST)
+        true_response = Response(
+            status_code=302,
+            redirect_url='/',
+        )
+        current_response = request.get_url_response(self.client)
+        self.assertTrueResponse(current_response, true_response)
+
+    def testAssertResponsesAreTrue(self):
+        """
+        Test Many responses
+        :return:
+        """
+        responses = [
+            (
+                self.request.get_url_response(self.client),
+                self.true_response,
+             )
+        ]
+        self.assertResponsesAreTrue(responses)
+
+    def testArgs(self):
+        """
+        Test url with args
+        :return:
+        """
+        request = Request(
+            url=Url(
+                url='/query/',
+                args=['kwarg_value']
+            )
+        )
+        true_response = Response(
+            context = Context(
+                items={'kwarg': 'kwarg_value'}
+            )
+        )
+        current_response = request.get_url_response(self.client)
+        self.assertTrueResponse(current_response, true_response)
+
+    def testParams(self):
+        """
+        Test Url with params
+        :return:
+        """
+        request = Request(
+            url = Url(
+                url='/query/',
+                args=['kwarg_value'],
+                params={
+                    'a': 'x',
+                    'b': 'y',
+                }
+            )
+        )
+        true_response = Response(
+            context=Context(
+                items={
+                    'kwarg': 'kwarg_value',
+                    'a': 'x',
+                    'b': 'y',
+                }
+            )
+        )
+        current_response = request.get_url_response(self.client)
+        self.assertTrueResponse(current_response, true_response)
+
+
+@tag('dry')
+class AssertFalseTestCase(SimpleTestCase):
+    """
+    Concrete TestCase inherited from DRY SimpleTestCase
+    All asserts should fail
     """
 
-    def test_many(self):
+    def test_failed(self):
         """
-        Try check many pairs
+        All asserts should fail
         :return:
         """
-        response_pairs = [
-        (
-            Request(url='/').get_url_response(self.client),
-            Response(
 
-                status_code=200,
-            ),
-        ),
-        ]
-        self.assertResponsesAreTrue(response_pairs)
-
-    def test_main(self):
-        """
-        All asserts tests in one test function
-        :return:
-        """
-        data = [
-            # Multy parameters GET
-            # DONE
-            {
-                'request': Request(url='/'),
-                'response': Response(
-                    status_code=200,
-                    in_context='title',
-                    context_values={'title': 'Title'},
-                    content_values=['Title'],
-                ),
-                'should_fail': False,
-                'assert': self.assertTrueResponse,
-            },
-            # Multy parameters POST
-            {
-                'request': Request(url='/', method=POST),
-                'response': Response(
-                    status_code=302,
-                    redirect_url='/',
-                ),
-                'should_fail': False,
-                'assert': self.assertTrueResponse,
-            },
-            # Failed assert
-            {
-                'request': Request(url='/'),
-                'response': Response(content_values=['Error value']),
-                'should_fail': True,
-                'assert': self.assertTrueResponse,
-            },
             # url_args
-            {
-                'request': Request(
-                    url=Url(
-                        url='/query/',
-                        args=['kwarg_value']
-                    )
-                ),
-                'response': Response(
-                    context_values={'kwarg': 'kwarg_value'}
-                ),
-                'should_fail': False,
-                'assert': self.assertContextValues,
-            },
+            # {
+            #     'request': Request(
+            #         url=Url(
+            #             url='/query/',
+            #             args=['kwarg_value']
+            #         )
+            #     ),
+            #     'response': Response(
+            #         # context_values={'kwarg': 'kwarg_value'}
+            #         Context(
+            #             items={'kwarg': 'kwarg_value'}
+            #         )
+            #     ),
+            #     'should_fail': False,
+            #     'assert': self.assertContextValues,
+            # },
             # url_params
-            {
-                'request': Request(
-                    url = Url(
-                        url='/query/',
-                        args=['kwarg_value'],
-                        params={
-                            'a': 'x',
-                            'b': 'y',
-                        }
-                    )
-                ),
-                'response': Response(
-                    context_values={
-                        'kwarg': 'kwarg_value',
-                        'a': 'x',
-                        'b': 'y',
-                    }
-                ),
-                'should_fail': False,
-                'assert': self.assertContextValues,
-            }
+            # {
+            #     'request': Request(
+            #         url = Url(
+            #             url='/query/',
+            #             args=['kwarg_value'],
+            #             params={
+            #                 'a': 'x',
+            #                 'b': 'y',
+            #             }
+            #         )
+            #     ),
+            #     'response': Response(
+            #         context_values={
+            #             'kwarg': 'kwarg_value',
+            #             'a': 'x',
+            #             'b': 'y',
+            #         }
+            #     ),
+            #     'should_fail': False,
+            #     'assert': self.assertContextValues,
+            # }
+
+        error_responses = []
+
+        status_code = 404
+
+        error_responses.append(
+            Response(
+                status_code=status_code
+            )
+        )
+
+        contexts = [
+            Context(
+                keys=['error key']
+            ),
+            Context(
+                items={'title': 'Error item'}
+            ),
+            Context(
+                items={'error key': 'Title'}
+            ),
+            Context(
+                values=['Error value']
+            ),
+            Context(
+                types={'title': list}
+            )
         ]
 
-        for item in data:
-            request = item['request']
-            tru_response = request.get_url_response(self.client)
-            expected_response = item['response']
-            assert_function = item['assert']
-            with self.subTest(msg=str(item)):
-                if item['should_fail']:
-                    with self.assertRaises(AssertionError):
-                        assert_function(tru_response, expected_response)
-                else:
-                    assert_function(tru_response, expected_response)
+        for context in contexts:
+            error_responses.append(
+                Response(context=context)
+            )
+
+        content_values = ['Error value']
+
+        error_responses.append(
+            Response(
+                content_values=content_values
+            )
+        )
+
+        for error_response in error_responses:
+            request = Request(
+                url='/'
+            )
+            current_response = request.get_url_response(self.client)
+            with self.subTest(msg=str(error_response)):
+                with self.assertRaises(AssertionError):
+                    self.assertTrueResponse(current_response, error_response)
