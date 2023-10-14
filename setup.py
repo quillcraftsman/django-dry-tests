@@ -2,7 +2,7 @@
 Setup.py file to build and install package
 """
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open(os.path.join(os.path.dirname(__file__), "README.md"), encoding='utf-8') as readme:
     README = readme.read()
@@ -20,13 +20,15 @@ def read(filename):
 
 PACKAGE_PYPI_NAME = 'django-dry-tests'
 PACKAGE_NAME = "dry_tests"
-PACKAGE_VERSION = "0.2.0"
+PACKAGE_VERSION = "0.2.1"
 DEVELOPMENT_STATUS = 'Development Status :: 3 - Alpha'
 
 setup(
     name=PACKAGE_PYPI_NAME,
     version=PACKAGE_VERSION,
-    packages=[PACKAGE_NAME],
+    packages=find_packages(
+        include=[PACKAGE_NAME, f'{PACKAGE_NAME}.*']
+    ),
     include_package_data=True,
     license="MIT",
     description="Package with new powerful TestCases and Assets "
