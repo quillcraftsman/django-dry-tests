@@ -3,6 +3,12 @@ Setup.py file to build and install package
 """
 import os
 from setuptools import setup
+from package_info import (
+    PACKAGE_PYPI_NAME,
+    PACKAGE_NAME,
+    PACKAGE_VERSION,
+    DEVELOPMENT_STATUS,
+)
 
 with open(os.path.join(os.path.dirname(__file__), "README.md"), encoding='utf-8') as readme:
     README = readme.read()
@@ -18,13 +24,9 @@ def read(filename):
     with open(filename, "r", encoding="utf-8") as file:
         return file.read()
 
-
-PACKAGE_PYPI_NAME = 'django-dry-tests'
-PACKAGE_NAME = "dry_tests"
-
 setup(
     name=PACKAGE_PYPI_NAME,
-    version="0.1.0",
+    version=PACKAGE_VERSION,
     packages=[PACKAGE_NAME],
     include_package_data=True,
     license="MIT",
@@ -41,7 +43,7 @@ setup(
     # ],
     python_requires=">=3",
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        f'Development Status :: {DEVELOPMENT_STATUS}',
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",

@@ -2,6 +2,62 @@
 
 Package with new powerful TestCases and Assets to test django application fast. TDD is supported
 
+<hr>
+
+#### Workflows
+[![Tests](https://github.com/quillcraftsman/django-dry-tests/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/quillcraftsman/django-dry-tests/actions/workflows/run-tests.yml)
+[![Pylint](https://github.com/quillcraftsman/django-dry-tests/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/quillcraftsman/django-dry-tests/actions/workflows/lint.yml)
+
+#### Package
+[![Version](https://img.shields.io/pypi/v/django-dry-tests.svg)](https://pypi.python.org/pypi/django-dry-tests/)
+[![Development Status](https://img.shields.io/pypi/status/django-dry-tests.svg)](https://pypi.python.org/pypi/django-dry-tests)
+[![Python version](https://img.shields.io/pypi/pyversions/django-dry-tests.svg)](https://pypi.python.org/pypi/django-dry-tests/)
+[![License](https://img.shields.io/pypi/l/django-dry-tests)](https://github.com/quillcraftsman/django-dry-tests/blob/main/LICENSE)
+[![Wheel](https://img.shields.io/pypi/wheel/django-dry-tests.svg)](https://pypi.python.org/pypi/django-dry-tests/)
+
+#### Support
+[![Documentation](https://readthedocs.org/projects/django-dry-tests/badge/?version=latest)](http://django-dry-tests.readthedocs.io/en/latest/?badge=latest)
+[![Discussions](https://img.shields.io/badge/discussions-ff0068.svg)](https://github.com/quillcraftsman/django-dry-tests/discussions/)
+[![Issues](https://img.shields.io/badge/issues-11AE13.svg)](https://github.com/quillcraftsman/django-dry-tests/issues/)
+
+#### Downloads
+[![Day Downloads](https://img.shields.io/pypi/dd/django-dry-tests)](https://pepy.tech/project/django-dry-tests)
+[![Week Downloads](https://img.shields.io/pypi/dw/django-dry-tests)](https://pepy.tech/project/django-dry-tests)
+[![Month Downloads](https://img.shields.io/pypi/dm/django-dry-tests)](https://pepy.tech/project/django-dry-tests)
+[![All Downloads](https://img.shields.io/pepy/dt/django-dry-tests)](https://pepy.tech/project/django-dry-tests)
+
+#### Languages
+[![Languages](https://img.shields.io/github/languages/count/quillcraftsman/django-dry-tests)](https://github.com/quillcraftsman/django-dry-tests/)
+[![Top Language](https://img.shields.io/github/languages/top/quillcraftsman/django-dry-tests)](https://github.com/quillcraftsman/django-dry-tests/)
+
+#### Development
+[![Release date](https://img.shields.io/github/release-date/quillcraftsman/django-dry-tests
+)](https://github.com/quillcraftsman/django-dry-tests/releases)
+[![Last Commit](https://img.shields.io/github/last-commit/quillcraftsman/django-dry-tests/main
+)](https://github.com/quillcraftsman/django-dry-tests/)
+[![Issues](https://img.shields.io/github/issues/quillcraftsman/django-dry-tests
+)](https://github.com/quillcraftsman/django-dry-tests/issues/)
+[![Closed Issues](https://img.shields.io/github/issues-closed/quillcraftsman/django-dry-tests
+)](https://github.com/quillcraftsman/django-dry-tests/issues/)
+[![Pull Requests](https://img.shields.io/github/issues-pr/quillcraftsman/django-dry-tests
+)](https://github.com/quillcraftsman/django-dry-tests/pulls)
+[![Closed Pull Requests](https://img.shields.io/github/issues-pr-closed-raw/quillcraftsman/django-dry-tests
+)](https://github.com/quillcraftsman/django-dry-tests/pulls)
+[![Discussions](https://img.shields.io/github/discussions/quillcraftsman/django-dry-tests
+)](https://github.com/quillcraftsman/django-dry-tests/discussions/)
+
+#### Repository Stats
+[![Stars](https://img.shields.io/github/stars/quillcraftsman/django-dry-tests
+)](https://github.com/quillcraftsman/django-dry-tests/)
+[![Contributors](https://img.shields.io/github/contributors/quillcraftsman/django-dry-tests
+)](https://github.com/quillcraftsman/django-dry-tests/graphs/contributors)
+[![Forks](https://img.shields.io/github/forks/quillcraftsman/django-dry-tests
+)](https://github.com/quillcraftsman/django-dry-tests/)
+
+<hr>
+
+## Menu
+
 - [Mission](#mission)
 - [Open Source Project](#open-source-project)
 - [Features](#features)

@@ -1,10 +1,11 @@
 """
 Tests with django TestCase
 """
-from django.test import TestCase, SimpleTestCase
-from demo.models import Simple
+from django.test import SimpleTestCase, tag
+# from demo.models import Simple
 
 
+@tag("django")
 class ViewSimpleTestCase(SimpleTestCase):
     """
     Django Test Case to Test views without database
@@ -76,29 +77,29 @@ class ViewSimpleTestCase(SimpleTestCase):
         self.assertEqual(context['kwarg'], 'kwarg_value')
 
 
-class ViewTestCase(TestCase):
-    """
-    Django tests with database
-    """
+# class ViewTestCase(TestCase):
+#     """
+#     Django tests with database
+#     """
+#
+#     def setUp(self):
+#         """
+#         Set Up test data
+#         :return:
+#         """
+#         self.url = '/'
 
-    def setUp(self):
-        """
-        Set Up test data
-        :return:
-        """
-        self.url = '/'
-
-    def test_new_object_created(self):
-        """
-        Test New Object Was Created
-        :return:
-        """
-        data = {
-            'name': 'new_name'
-        }
-        self.assertFalse(Simple.objects.filter(name='new_name').exists())
-        self.client.post(self.url, data=data)
-        self.assertTrue(Simple.objects.filter(name='new_name').exists())
+    # def test_new_object_created(self):
+    #     """
+    #     Test New Object Was Created
+    #     :return:
+    #     """
+    #     data = {
+    #         'name': 'new_name'
+    #     }
+    #     self.assertFalse(Simple.objects.filter(name='new_name').exists())
+    #     self.client.post(self.url, data=data)
+    #     self.assertTrue(Simple.objects.filter(name='new_name').exists())
 
     # def test_object_updated(self):
     #     first = Simple.objects.create(name='first')
@@ -110,12 +111,12 @@ class ViewTestCase(TestCase):
     #     self.client.post(url, data=data)
     #     self.assertTrue(Simple.objects.filter(name='updated_name').exists())
 
-    def test_detail_view(self):
-        """
-        Test Detail View
-        :return:
-        """
-        first = Simple.objects.create(name='first')
-        url = f'/{first.pk}/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+    # def test_detail_view(self):
+    #     """
+    #     Test Detail View
+    #     :return:
+    #     """
+    #     first = Simple.objects.create(name='first')
+    #     url = f'/{first.pk}/'
+    #     response = self.client.get(url)
+    #     self.assertEqual(response.status_code, 200)

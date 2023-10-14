@@ -3,7 +3,7 @@ Views for test main features
 """
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .models import Simple
+# from .models import Simple
 
 
 def index_view(request):
@@ -18,9 +18,9 @@ def index_view(request):
         }
         return render(request, 'demo/index.html', context)
 
-    name = request.POST.get('name', None)
-    if name is not None:
-        Simple.objects.create(name=name)
+    # name = request.POST.get('name', None)
+    # if name is not None:
+    #     Simple.objects.create(name=name)
     return HttpResponseRedirect('/')
 
 
@@ -41,11 +41,11 @@ def param_view(request, kwarg):
     return render(request, 'demo/index.html', context)
 
 
-def one_view(request, pk):
-    """
-    One view with pk to detail, update and delete object
-    :param request:
-    :param pk:
-    :return:
-    """
-    return render(request, 'demo/index.html')
+# def one_view(request, pk):
+#     """
+#     One view with pk to detail, update and delete object
+#     :param request:
+#     :param pk:
+#     :return:
+#     """
+#     return render(request, 'demo/index.html')
