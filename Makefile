@@ -28,8 +28,6 @@ dry-coverage:
 	coverage html --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package_info.py,demo/tests/tests_django.py
 	coverage report --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package_info.py,demo/tests/tests_django.py --fail-under=100
 
-
-
 yamllint:
 	yamllint -d relaxed .
 
@@ -44,7 +42,7 @@ install:
 	pip install dist/*.whl
 
 uninstall:
-	pip uninstall django-dry-tests
+	pip uninstall django-dry-tests -y
 	rm -rf dist
 	rm -rf django_dry_tests.egg-info
 
