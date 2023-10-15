@@ -16,7 +16,7 @@ class TrueResponse:
     status_code: int = None
     redirect_url: str | Url = None
     content_values: list = None
-    context: Context = None
+    context: Context | dict = None
     created: Model = None
 
     def get_content_values(self):
@@ -37,3 +37,10 @@ class TrueResponse:
         :return: str url
         """
         return get_url(self.redirect_url)
+
+    def get_context(self):
+        """
+        Get context instance
+        :return: Context
+        """
+        return self.context if isinstance(self.context, Context) else Context(items=self.context)

@@ -21,7 +21,8 @@ class AssertTrueTestCase(SimpleTestCase):
     All asserts Should not fail
     """
     def setUp(self):
-        self.request = Request(url='/')
+        self.url = '/'
+        self.request = Request(url=self.url)
         self.true_response = Response(
             status_code=200,
             context=Context(
@@ -41,6 +42,22 @@ class AssertTrueTestCase(SimpleTestCase):
         # GET
         current_response = self.request.get_response(self.client)
         self.assertTrueResponse(current_response, self.true_response)
+
+    def testContextAsDict(self):
+        """
+        Test send context as dict
+        :return:
+        """
+        request = Request(
+            url=self.url
+        )
+        true_response = Response(
+            context={
+                'title': 'Title'
+            }
+        )
+        current_response = request.get_response(self.client)
+        self.assertTrueResponse(current_response, true_response)
 
     def testAssertTrueResponsePost(self):
         """

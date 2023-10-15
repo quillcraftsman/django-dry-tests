@@ -37,7 +37,7 @@ class SimpleTestCase(DjangoSimpleTestCase):
         :param response: Response
         :return: None
         """
-        for key in true_response.context.keys:
+        for key in true_response.get_context().keys:
             self.assertIn(key, current_response.context)
 
     def assertValuesInContext(self, current_response, true_response):
@@ -60,7 +60,7 @@ class SimpleTestCase(DjangoSimpleTestCase):
         :return: None
         """
         context = current_response.context
-        context_items = true_response.context.items
+        context_items = true_response.get_context().items
         for key, value in context_items.items():
             self.assertIn(key, context)
             self.assertEqual(value, context[key])
@@ -73,7 +73,7 @@ class SimpleTestCase(DjangoSimpleTestCase):
         :return:
         """
         context = current_response.context
-        context_types = true_response.context.types
+        context_types = true_response.get_context().types
         for key, value in context_types.items():
             self.assertIn(key, context)
             self.assertTrue(isinstance(context[key], value))
@@ -102,8 +102,8 @@ class SimpleTestCase(DjangoSimpleTestCase):
             self.assertRedirectUrl(current_response, true_response)
             # Not ?
         # context
-        if true_response.context:
-            true_response_context = true_response.context
+        true_response_context = true_response.get_context()
+        if true_response_context:
             if true_response_context.keys:
                 self.assertKeysInContext(current_response, true_response)
             if true_response_context.items:
