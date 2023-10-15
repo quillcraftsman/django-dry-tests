@@ -20,13 +20,13 @@ coverage:
 
 django-coverage:
 	coverage run --source='.' manage.py test --tag="django"
-	coverage html --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package_info.py,demo/tests/tests_dry.py,dry_tests/*
-	coverage report --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package_info.py,demo/tests/tests_dry.py,dry_tests/* --fail-under=100
+	coverage html --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package_info.py,demo/tests/*,dry_tests/*
+	coverage report --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package_info.py,demo/tests/*,dry_tests/* --fail-under=100
 
 dry-coverage:
 	coverage run --source='.' manage.py test --tag="dry"
-	coverage html --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package_info.py,demo/tests/tests_django.py
-	coverage report --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package_info.py,demo/tests/tests_django.py --fail-under=100
+	coverage html --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package_info.py,demo/tests/*
+	coverage report --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package_info.py,demo/tests/* --fail-under=100
 
 yamllint:
 	yamllint -d relaxed .

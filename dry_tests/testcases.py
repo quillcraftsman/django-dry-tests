@@ -115,6 +115,54 @@ class SimpleTestCase(DjangoSimpleTestCase):
         if true_response.content_values:
             self.assertContentValues(current_response, true_response)
 
+    def assertFormFieldsCount(self, current_form, true_form):
+        """
+        Check fields count
+        :param current_form:
+        :param true_form:
+        :return:
+        """
+        self.assertEqual(len(current_form.fields), true_form.fields.count)
+
+    def assertFieldsInForm(self, current_form, true_form):
+        """
+        Check fields in form
+        :param current_form:
+        :param true_form:
+        :return:
+        """
+        for name in true_form.fields.names:
+            self.assertIn(name, current_form.fields)
+
+    def assertFormTypes(self, current_form, true_form):
+        """
+        Check form fields types
+        :param current_form:
+        :param true_form:
+        :return:
+        """
+        for name, form_type in true_form.fields.types.items():
+            fields = current_form.fields
+            self.assertIn(name, fields)
+            self.assertIsInstance(fields[name], form_type)
+
+
+    def assertTrueForm(self, current_form, true_form):
+        """
+        Main assert for Forms
+        :param current_form: django form
+        :param true_form: TrueForm
+        :return: None
+        """
+        fields = true_form.fields
+        if fields:
+            if fields.count:
+                self.assertFormFieldsCount(current_form, true_form)
+            if fields.names:
+                self.assertFieldsInForm(current_form, true_form)
+            if fields.types:
+                self.assertFormTypes(current_form, true_form)
+
     def assertResponsesAreTrue(self, response_pairs):
         """
         Check all response pairs
