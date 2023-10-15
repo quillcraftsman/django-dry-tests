@@ -19,7 +19,7 @@ class Request:
     method: Literal[GET, POST] = GET
     data: dict = None
 
-    def get_url_response(self, client):
+    def get_response(self, client):
         """
         get response with test client
         :param client: Request client
