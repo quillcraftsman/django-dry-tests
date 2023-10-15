@@ -28,7 +28,7 @@ class SimpleTestCase(DjangoSimpleTestCase):
         :param response: Response
         :return: None
         """
-        self.assertRedirects(current_response, true_response.redirect_url)
+        self.assertRedirects(current_response, true_response.get_redirect_url())
 
     def assertKeysInContext(self, current_response, true_response):
         """

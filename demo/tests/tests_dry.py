@@ -55,6 +55,16 @@ class AssertTrueTestCase(SimpleTestCase):
         current_response = request.get_response(self.client)
         self.assertTrueResponse(current_response, true_response)
 
+        # With Url as redirect url
+        request = Request(url='/', method=POST)
+        true_response = Response(
+            redirect_url=Url(
+                url='/'
+            ),
+        )
+        current_response = request.get_response(self.client)
+        self.assertTrueResponse(current_response, true_response)
+
     def testAssertResponsesAreTrue(self):
         """
         Test Many responses

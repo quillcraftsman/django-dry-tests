@@ -3,7 +3,7 @@ Requests Models
 """
 from dataclasses import dataclass
 from typing import Literal
-from .urls import Url
+from .urls import Url, get_url
 
 GET = 'get'
 POST = 'post'
@@ -30,7 +30,7 @@ class Request:
             POST: client.post
         }
 
-        url = self.url.make_url() if isinstance(self.url, Url) else self.url
+        url = get_url(self.url)
         url_response = requests[self.method](url, data=self.data)
 
         return url_response
