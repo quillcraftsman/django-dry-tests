@@ -8,7 +8,7 @@ Install requirement
 
     pip install -r requirements.txt
     pip install -r dev-requirements.txt
-    pip install -r doc-requirements.txt
+    pip install -r docs/doc-requirements.txt
 
 Makefile
 ^^^^^^^^
