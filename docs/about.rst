@@ -3,6 +3,8 @@ Django DRY Tests
 
 Package with new powerful TestCases and Assets to test django application fast. TDD is supported
 
+Project on `GitHub <https://github.com/quillcraftsman/django-dry-tests>`_
+
 .. start-badges
 
 .. list-table::
@@ -91,7 +93,7 @@ Features
 Requirements
 ------------
 
-.. include:: ../../requirements.txt
+.. include:: ../requirements.txt
 
 Development Status
 ------------------

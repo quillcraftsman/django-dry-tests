@@ -12,21 +12,8 @@ Welcome to django-dry-tests's documentation!
 
    about
    install
+   quickstart
    package/modules
-
-What should be in documentation:
-================================
-- Short description (Link to GitHub)
-- - Features
-- - Requirements
-- - Development Status
-- Install
-- - Different ways
-- Quickstart
-- Slow-start
-- - Different Options
-- Tutorial may be
-- Development Documentation
 
 Indices and tables
 ==================
