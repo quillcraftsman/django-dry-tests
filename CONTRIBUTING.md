@@ -34,5 +34,7 @@ Additionally, the code should follow any stylistic and architectural guidelines
 prescribed by the project. In the absence of such guidelines, mimic the styles
 and patterns in the existing code-base.
 
+You can check [Developer Documentation](https://drytest.craftsman.lol/dev_documentation.html) to easy start with code
+
 [issues-path]: https://github.com/quillcraftsman/django-dry-tests/issues
 [discussions-path]: https://github.com/quillcraftsman/django-dry-tests/discussions

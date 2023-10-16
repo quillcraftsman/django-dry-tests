@@ -2,6 +2,8 @@
 
 Package with new powerful TestCases and Assets to test django application fast. TDD is supported
 
+You can find **Full Project Documentation** [here][documentation_path]
+
 <hr>
 
 #### Workflows
@@ -16,7 +18,7 @@ Package with new powerful TestCases and Assets to test django application fast. 
 [![Wheel](https://img.shields.io/pypi/wheel/django-dry-tests.svg)](https://pypi.python.org/pypi/django-dry-tests/)
 
 #### Support
-[![Documentation](https://readthedocs.org/projects/django-dry-tests/badge/?version=latest)](http://django-dry-tests.readthedocs.io/en/latest/?badge=latest)
+[![Documentation](https://img.shields.io/badge/docs-0094FF.svg)][documentation_path]
 [![Discussions](https://img.shields.io/badge/discussions-ff0068.svg)](https://github.com/quillcraftsman/django-dry-tests/discussions/)
 [![Issues](https://img.shields.io/badge/issues-11AE13.svg)](https://github.com/quillcraftsman/django-dry-tests/issues/)
 
@@ -46,13 +48,19 @@ Package with new powerful TestCases and Assets to test django application fast. 
 [![Discussions](https://img.shields.io/github/discussions/quillcraftsman/django-dry-tests
 )](https://github.com/quillcraftsman/django-dry-tests/discussions/)
 
-#### Repository Stats
-[![Stars](https://img.shields.io/github/stars/quillcraftsman/django-dry-tests
-)](https://github.com/quillcraftsman/django-dry-tests/)
-[![Contributors](https://img.shields.io/github/contributors/quillcraftsman/django-dry-tests
-)](https://github.com/quillcraftsman/django-dry-tests/graphs/contributors)
-[![Forks](https://img.shields.io/github/forks/quillcraftsman/django-dry-tests
-)](https://github.com/quillcraftsman/django-dry-tests/)
+[//]: # (#### Repository Stats)
+
+[//]: # ([![Stars]&#40;https://img.shields.io/github/stars/quillcraftsman/django-dry-tests)
+
+[//]: # (&#41;]&#40;https://github.com/quillcraftsman/django-dry-tests/&#41;)
+
+[//]: # ([![Contributors]&#40;https://img.shields.io/github/contributors/quillcraftsman/django-dry-tests)
+
+[//]: # (&#41;]&#40;https://github.com/quillcraftsman/django-dry-tests/graphs/contributors&#41;)
+
+[//]: # ([![Forks]&#40;https://img.shields.io/github/forks/quillcraftsman/django-dry-tests)
+
+[//]: # (&#41;]&#40;https://github.com/quillcraftsman/django-dry-tests/&#41;)
 
 <hr>
 
@@ -83,25 +91,20 @@ Be free to use, fork, clone and contribute.
 
 ## Features
 
-- Special **Request** and **Response** classes to simple set test data
-- Special **SimpleTestCase** class with:
-    - `assertTrueResponse(self, current_response, true_response)` - Main assert to compare real response with expected
-    - `assertResponsesAreTrue(self, response_pairs)` - Compare many responses
-    - Other more simple asserts (`assertStatusCode`, `assertRedirectUrl`, `assertValueInContext`, 
-          `assertContextValues`, `assertContentValues`)
-- Special **TestCase** class. Similar with **SimpleTestCase** but with testing database (**Not ready yet**)
+- Special **Request**, **Response** and **Form** classes to simple set test data
+- Special **SimpleTestCase** and **TestCase** classes with new asserts:
+- - The main asserts is **assertTrueResponse** and **assertTrueForm**. You can use this for most cases.
+- - Other special asserts (See more in [Full Documentation](https://drytest.craftsman.lol/about.html#features))
 
 ## Requirements
 
 - `Django==4` (Lower versions haven't been tested)
+- See more in [Full Documentation](https://drytest.craftsman.lol/about.html#requirements)
 
 ## Development Status
 
-- **django-dry-tests**
-- **v0.1.0**
-- **3 - Alpha**
-
-Package available on [PyPi](https://pypi.org/project/django-dry-tests/)
+- Package already available on [PyPi](https://pypi.org/project/django-dry-tests/)
+- See more in [Full Documentation](https://drytest.craftsman.lol/about.html#development-status)
 
 ## Install
 
@@ -111,90 +114,91 @@ Package available on [PyPi](https://pypi.org/project/django-dry-tests/)
 pip install django-dry-tests
 ```
 
-### from release page
-
-Download source code from [GitHub Releases page](https://github.com/quillcraftsman/django-dry-tests/releases)
-
-### clone from GitHub
-
-```commandline
-git clone https://github.com/quillcraftsman/django-dry-tests.git
-make install
-```
+See more in [Full Documentation](https://drytest.craftsman.lol/install.html)
 
 ## Quickstart
 
-For example, you need to test some view like this:
+### To test view
 
 ```python
-def index_view(request):
-    if request.method == 'GET':
-        context = {
-            'title': 'Title'
-        }
-        return render(request, 'demo/index.html', context)
+class QuickStartViewSimpleTestCase(SimpleTestCase):
+    """
+    SimpleTestCase example
+    """
 
-    name = request.POST.get('name', None)
-    if name is not None:
-        Simple.objects.create(name=name)
-    return HttpResponseRedirect('/')
+    def test_get(self):
+        """
+        Test Example with django-dry-tests
+        :return:
+        """
+        # Create Request Model
+        request = Request(
+            url='/quickstart/'
+        )
+
+        # Create Response Model to check all view.
+        # You can set only one param without others to check it.
+        true_response = TrueResponse(
+            status_code=200,
+            context=Context(
+                keys=['quickstart'],  # check that quickstart key in context
+                values=['Quickstart'],  # check that "Quickstart" value in context
+                items={
+                    'quickstart': 'Quickstart'
+                },  # check both keys and values in context
+                types={
+                    'quickstart': str
+                }  # check values types without check values
+            ),
+            content_values = [
+                'Quickstart',
+                '<h1>Quickstart title</h1>'
+            ],  # check values after template will be rendered
+        )
+
+        # get url response with Django default Test Client
+        current_response = request.get_response(self.client)
+        # Use main assert to run all asserts
+        self.assertTrueResponse(current_response, true_response)
 ```
 
-And you want to check:
-- GET response status code
-- GET response context data
-- GET response some html data
-- POST response status code
-- POST response redirect url
-- POST response save object to database (**Not implemented yet**)
+### To test Form
 
-Let`s see the tests code:
 ```python
-from dry_tests import (
-    Request,
-    TrueResponse as Response,
-    SimpleTestCase,
-    POST,
-)
+class ExampleFromTestCase(SimpleTestCase):
+    """
+    Example Form Test Class
+    """
 
-
-class ViewTestCase(SimpleTestCase):
-
-    def test_main(self):
-        data = [
-            # Multy parameters GET
-            {
-                'request': Request(url='/'),
-                'response': Response(
-                    status_code=200,
-                    in_context='title',
-                    context_values={'title': 'Title'},
-                    content_values=['Title'],
-                ),
-            },
-            # Multy parameters POST
-            {
-                'request': Request(url='/', method=POST),
-                'response': Response(
-                    status_code=302,
-                    redirect_url='/',
-                ),
-            },
-        ]
-        for item in data:
-            request = item['request']
-            true_response = item['response']
-            current_response = request.get_url_response(self.client)
-            self.assertTrueResponse(current_response, true_response)
+    def test_form(self):
+        """
+        Example Test with django-dry-tests
+        :return:
+        """
+        true_form = TrueForm(  # Set Up TrueForm instance
+               Fields(  # TrueForm Fields
+                   count=2,  # check fields count
+                   names=[
+                       'number', 'name'
+                   ],  # check field names
+                   types={
+                       'name': forms.CharField,
+                       'number': forms.IntegerField
+                   }  # check fields types
+               ),
+            )
+        current_form = ExampleForm()  # Get project form
+        self.assertTrueForm(current_form, true_form)  # use this main assert to check all conditions
 ```
 
-That's all this simple test cover all your test tasks with (**assertTrueResponse**)
+### More examples in [Full Documentation][documentation_path]
 
 ## Contributing
 
 You are welcome! To easy start please check:
 - [Developer Guidelines](CONTRIBUTING.md)
-- [Developer Documentation](DEVELOPER_DOCUMENTATION.md)
+- [Developer Documentation](https://drytest.craftsman.lol/dev_documentation.html)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 - [Security Policy](SECURITY.md)
 
+[documentation_path]: https://drytest.craftsman.lol
