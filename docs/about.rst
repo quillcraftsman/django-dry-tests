@@ -47,5 +47,10 @@ Requirements
 Development Status
 ------------------
 
-.. automodule:: package
-    :members:
+- |project_name|
+
+- |version|
+
+- |development_status|
+
+`Project on PyPi <https://pypi.org/project/django-dry-tests/>`_
