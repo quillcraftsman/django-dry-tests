@@ -2,15 +2,15 @@
 Base testcases
 """
 from django.test import (
-    # TestCase as DjangoTestCase,
+    TestCase as DjangoTestCase,
     SimpleTestCase as DjangoSimpleTestCase,
 )
 
 
-class SimpleTestCase(DjangoSimpleTestCase):
+class TestCaseMixin:
     """
-    Main TestCase without test database
-    """
+        Main TestCase without test database
+        """
 
     def assertStatusCode(self, current_response, true_response):
         """
@@ -146,7 +146,6 @@ class SimpleTestCase(DjangoSimpleTestCase):
             self.assertIn(name, fields)
             self.assertIsInstance(fields[name], form_type)
 
-
     def assertTrueForm(self, current_form, true_form):
         """
         Main assert for Forms
@@ -172,16 +171,14 @@ class SimpleTestCase(DjangoSimpleTestCase):
         for current_response, true_response in response_pairs:
             self.assertTrueResponse(current_response, true_response)
 
-    # def assertCreated(self, request, response):
-    #     """
-    #     Check object was created
-    #     :param request: Request
-    #     :param response: Response
-    #     :return: None
-    #     """
-    #     created = response.created
-    #     model = created['model']
-    #     fields = created['fields']
-    #     self.assertFalse(model.objects.filter(**fields).exists())
-    #     self.get_url_response(request)
-    #     self.assertTrue(model.objects.filter(**fields).exists())
+
+class SimpleTestCase(TestCaseMixin, DjangoSimpleTestCase):
+    """
+    SimpleTestCase without test database
+    """
+
+
+class TestCase(TestCaseMixin, DjangoTestCase):
+    """
+    TestCase with test database
+    """

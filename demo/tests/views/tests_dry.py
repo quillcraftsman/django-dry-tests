@@ -6,6 +6,7 @@ from dry_tests import (
     Request,
     TrueResponse as Response,
     SimpleTestCase,
+    TestCase,
     POST,
     Url,
     Context,
@@ -14,13 +15,15 @@ from dry_tests import (
 # from demo.models import Simple
 
 
-@tag('dry')
-class AssertTrueTestCase(SimpleTestCase):
+class AssertTrueMixin:
     """
-    Concrete TestCase inherited from DRY SimpleTestCase
-    All asserts Should not fail
+    Mixin for Simple test case and TestCase
     """
     def setUp(self):
+        """
+        Setup test data
+        :return:
+        """
         self.url = '/'
         self.request = Request(url=self.url)
         self.true_response = Response(
@@ -143,7 +146,22 @@ class AssertTrueTestCase(SimpleTestCase):
 
 
 @tag('dry')
-class AssertFalseTestCase(SimpleTestCase):
+class AssertTrueTestCase(AssertTrueMixin, TestCase):
+    """
+        Concrete TestCase inherited from DRY TestCase (with db)
+        All asserts Should not fail
+        """
+
+@tag('dry')
+class AssertTrueSimpleTestCase(AssertTrueMixin, SimpleTestCase):
+    """
+    Concrete TestCase inherited from DRY SimpleTestCase
+    All asserts Should not fail
+    """
+
+
+@tag('dry')
+class AssertFalseSimpleTestCase(SimpleTestCase):
     """
     Concrete TestCase inherited from DRY SimpleTestCase
     All asserts should fail

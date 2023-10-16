@@ -5,7 +5,7 @@ from django.test import tag
 from django import forms
 from demo.forms import DemoForm
 from dry_tests import (
-    SimpleTestCase,
+    SimpleTestCase
 )
 from dry_tests.models import TrueForm, Fields
 
