@@ -35,7 +35,14 @@ def get_value_from_package_info(line, value, old_value):
 
 
 PACKAGE_NAME = "dry_tests"
-
+PROJECT_URLS = {
+    'Documentation': 'https://drytest.craftsman.lol',
+    'Source': 'https://github.com/quillcraftsman/django-dry-tests',
+    'Tracker': 'https://github.com/quillcraftsman/django-dry-tests/issues',
+    'Release notes': 'https://github.com/quillcraftsman/django-dry-tests/releases',
+    'Changelog': 'https://github.com/quillcraftsman/django-dry-tests/releases',
+    'Download': 'https://pypi.org/project/django-dry-tests/',
+}
 
 with open_local([PACKAGE_NAME, "package.py"]) as fp:
     package_pypi_name, package_version, package_status = None, None, None
@@ -50,18 +57,12 @@ with open_local([PACKAGE_NAME, "package.py"]) as fp:
 # allow setup.py to be run from any path
 # os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
-
 def read(filename):
     """
     read some file
     """
     with open(filename, "r", encoding="utf-8") as file:
         return file.read()
-
-
-# PACKAGE_PYPI_NAME = 'django-dry-tests'
-# PACKAGE_VERSION = "0.2.1"
-# DEVELOPMENT_STATUS = '3 - Alpha'
 
 setup(
     name=package_pypi_name,
@@ -94,4 +95,5 @@ setup(
         "Operating System :: OS Independent",
         "Topic :: Software Development :: Testing",
     ],
+    project_urls= PROJECT_URLS,
 )
