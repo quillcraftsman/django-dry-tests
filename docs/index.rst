@@ -13,6 +13,7 @@ Welcome to django-dry-tests's documentation!
    about
    install
    quickstart
+   forms_testing
    dev_documentation
    faq
    package/modules
