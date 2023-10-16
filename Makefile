@@ -15,13 +15,13 @@ django-test:
 
 coverage:
 	coverage run --source='.' manage.py test
-	coverage html --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package_info.py
-	coverage report --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package_info.py --fail-under=100
+	coverage html --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package.py
+	coverage report --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package.py --fail-under=100
 
 django-coverage:
 	coverage run --source='.' manage.py test --tag="django"
-	coverage html --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package.py,demo/tests/*,dry_tests/*
-	coverage report --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package.py,demo/tests/*,dry_tests/* --fail-under=100
+	coverage html --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package.py,demo/tests/*,dry_tests/*,quickstart/*
+	coverage report --omit=settings/asgi.py,settings/wsgi.py,manage.py,setup.py,package.py,demo/tests/*,dry_tests/*,quickstart/* --fail-under=100
 
 dry-coverage:
 	coverage run --source='.' manage.py test --tag="dry"

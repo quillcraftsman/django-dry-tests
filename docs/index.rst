@@ -10,7 +10,8 @@ Welcome to django-dry-tests's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   about/about
+   about
+   install
    package/modules
 
 What should be in documentation:
