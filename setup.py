@@ -1,14 +1,61 @@
 """
 Setup.py file to build and install package
 """
+import codecs
 import os
-import json
 from setuptools import setup, find_packages
-# from . import package
+
+
+def open_local(paths, mode="r", encoding="utf8"):
+    """
+    Open local package file
+    :param paths: list of paths to file
+    :param mode: read, write, ...
+    :param encoding: Encoding
+    :return: file object
+    """
+    path = os.path.join(os.path.abspath(os.path.dirname(__file__)), *paths)
+    return codecs.open(path, mode, encoding)
+
+
+def get_value_from_package_info(line, value, old_value):
+    """
+    Get value from text line
+    :param line: file text line
+    :param value: value to parse
+    :param old_value: if value has already founded
+    :return:
+    """
+    if old_value:
+        return old_value
+    if line.startswith(value):
+        _, val = line.split('=')
+        return val.strip().replace("'", '')
+    return None
+
+
+PACKAGE_NAME = "dry_tests"
+PROJECT_URLS = {
+    'Documentation': 'https://drytest.craftsman.lol',
+    'Source': 'https://github.com/quillcraftsman/django-dry-tests',
+    'Tracker': 'https://github.com/quillcraftsman/django-dry-tests/issues',
+    'Release notes': 'https://github.com/quillcraftsman/django-dry-tests/releases',
+    'Changelog': 'https://github.com/quillcraftsman/django-dry-tests/releases',
+    'Download': 'https://pypi.org/project/django-dry-tests/',
+}
+
+with open_local([PACKAGE_NAME, "package.py"]) as fp:
+    package_pypi_name, package_version, package_status = None, None, None
+    for file_line in fp:
+        package_pypi_name = get_value_from_package_info(file_line, 'name', package_pypi_name)
+        package_version = get_value_from_package_info(file_line, 'version', package_version)
+        package_status = get_value_from_package_info(file_line, 'status', package_status)
+
+    if not (package_pypi_name and package_version and package_status):
+        raise RuntimeError("Unable to determine Package Info.")
 
 # allow setup.py to be run from any path
-os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
-
+# os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 def read(filename):
     """
@@ -17,36 +64,9 @@ def read(filename):
     with open(filename, "r", encoding="utf-8") as file:
         return file.read()
 
-
-def get_package_info():
-    """
-    Get Package Info
-    :return:
-    """
-    package_info = read('package.json')
-    return json.loads(package_info)
-
-
-PACKAGE_PYPI_NAME = 'django-dry-tests'
-PACKAGE_NAME = "dry_tests"
-PACKAGE_VERSION = "0.2.1"
-DEVELOPMENT_STATUS = '3 - Alpha'
-
-
-# class PackageInfo:
-#     PyPi = 'django-dry-tests'
-#     version = '0.2.1'
-#     status = '3 - Alpha'
-
-#package_info = get_package_info()
-# package_name = package_info['name']
-# package_version = package_info['version']
-# package_status = package_info['status']
-
-# https://github.com/sanic-org/sanic/blob/main/setup.py - here example how to get version from file
 setup(
-    name=PACKAGE_NAME,
-    version=PACKAGE_VERSION,
+    name=package_pypi_name,
+    version=package_version,
     packages=find_packages(
         include=[PACKAGE_NAME, f'{PACKAGE_NAME}.*']
     ),
@@ -66,7 +86,7 @@ setup(
     # ],
     python_requires=">=3",
     classifiers=[
-        f'Development Status :: {DEVELOPMENT_STATUS}',
+        f'Development Status :: {package_status}',
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
@@ -75,4 +95,5 @@ setup(
         "Operating System :: OS Independent",
         "Topic :: Software Development :: Testing",
     ],
+    project_urls= PROJECT_URLS,
 )
