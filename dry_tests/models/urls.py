@@ -44,3 +44,12 @@ class Url:
             url_params_str = '&'.join(url_params_list)
             url = f'{url}?{url_params_str}'
         return url
+
+
+def get_url(url: str | Url):
+    """
+    Get url from str or Url
+    :param url: input urls
+    :return: result url
+    """
+    return url.make_url() if isinstance(url, Url) else url

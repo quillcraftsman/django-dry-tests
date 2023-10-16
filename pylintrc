@@ -6,5 +6,6 @@ disable=
     W0613, #  unused argument
     C0103, # snake case (unittests)
     W0511, # fixme
+    R0801, # duplicated code
 
 ignore-paths=.*/migrations

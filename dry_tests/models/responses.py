@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from django.db.models import Model
 from .content import ContentValue
 from .context import Context
+from .urls import Url, get_url
 
 
 @dataclass(frozen=True)
@@ -12,14 +13,11 @@ class TrueResponse:
     """
     Main Excepted Response Model
     """
-    status_code: int = 200
-    redirect_url: str = None
-    # in_context: str = None
-    # context_values: dict = None
+    status_code: int = None
+    redirect_url: str | Url = None
     content_values: list = None
-    context: Context = None
+    context: Context | dict = None
     created: Model = None
-    # db_data: callable = None
 
     def get_content_values(self):
         """
@@ -32,3 +30,17 @@ class TrueResponse:
             else ContentValue(value=content_value)
             for content_value in self.content_values
         ]
+
+    def get_redirect_url(self):
+        """
+        Get result url from self url
+        :return: str url
+        """
+        return get_url(self.redirect_url)
+
+    def get_context(self):
+        """
+        Get context instance
+        :return: Context
+        """
+        return self.context if isinstance(self.context, Context) else Context(items=self.context)

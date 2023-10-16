@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dry_tests',
     'demo',
+    'quickstart',
 ]
 
 MIDDLEWARE = [
