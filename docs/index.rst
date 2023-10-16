@@ -13,6 +13,8 @@ Welcome to django-dry-tests's documentation!
    about
    install
    quickstart
+   dev_documentation
+   faq
    package/modules
 
 Indices and tables

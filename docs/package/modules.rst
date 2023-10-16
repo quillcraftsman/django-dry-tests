@@ -1,5 +1,5 @@
-dry_tests
-=========
+Source code documentation
+=========================
 
 .. toctree::
    :maxdepth: 4
