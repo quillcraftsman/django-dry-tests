@@ -33,7 +33,8 @@
 - [x] Linters
 - [x] Build
 - [x] Deploy To PyPi
-- [ ] New user greetings
+- [x] New user greetings
+- [ ] Labeler (to set labels on pull requests)
 
 Others
 - [x] Makefile
