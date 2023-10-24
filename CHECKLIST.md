@@ -25,6 +25,9 @@
 > [MIT](LICENSE)
 - [X] [Code of Conduct](https://github.com/quillcraftsman/open-source-checklist#code-of-conduct)
 - [X] [Security Policy](https://github.com/quillcraftsman/open-source-checklist#security-policy)
+- [x] [Governance](https://github.com/quillcraftsman/open-source-checklist#governance)
+- [x] [Issue templates](https://github.com/quillcraftsman/open-source-checklist#issue-templates)
+- [x] [Support](https://github.com/quillcraftsman/open-source-checklist#support)
 
 [CI and CD](https://github.com/quillcraftsman/open-source-checklist#ci-and-cd)
 - [x] Tests
